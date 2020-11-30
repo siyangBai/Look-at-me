@@ -1,0 +1,54 @@
+class Eye {
+  int w, h, z, x, y, ew;
+  float offsetx, offsety;
+  int tx, ty;
+  Eye(int xx, int yy) {
+    w = 100;
+    h = 25;
+    z = 150;
+    x = xx;
+    y = yy;
+    ew=25;
+    tx=xx;
+    ty=yy;
+  }
+  void update() {
+    strokeWeight(5);
+    noFill();
+    rect(x - w / 3, y - w / 2, w + w / 3 + w / 3, h * 4);
+    fill(0, 0, 0, 1);
+    curve(x - h, y + z, x, y, x + w, y, x + z, y + z);
+    curve(x - h, y - z, x, y, x + w, y, x + z, y - z);
+
+    if (mouseX >x+w/2) {
+      offsetx=map(mouseX-x-w/2, width, 0, 0, -h);
+    } else {
+      offsetx=map(abs(mouseX-x-w/2), width, 0, 0, h);
+    }
+    if (mouseY> y) {
+      offsety=map(mouseY-y, height, 0, 0, -h);
+    } else {
+      offsety=map(abs(mouseY-y), height, 0, 0, h);
+    }
+
+
+    //println(offsetx);
+    ellipseMode(CENTER);
+    if (tx<x+w/2+int(offsetx)) {
+      tx++;
+    }
+    if (tx>x+w/2+int(offsetx)) {
+      tx--;
+    }
+    if (ty<y+int(offsety)) {
+      ty++;
+    }
+    if (ty>y+int(offsety)) {
+      ty--;
+    }
+    if (mouseX>(x - w / 3)&& mouseY> (y - w / 2)&& mouseX< (x+ w + w / 3)&&mouseY< (y+h * 2)) {
+      return;
+    }
+    ellipse(tx, ty, ew, ew);
+  }
+}
