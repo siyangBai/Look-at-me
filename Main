@@ -1,0 +1,34 @@
+Eye e[];
+int count = 48;
+void setup() {
+  size(1340, 1000);
+  frameRate(30);
+  e=new Eye[count];
+  int a=0;
+  for (int i = 0; i < 6; i++) {
+    for (int j = 0; j < 8; ++j) {
+      e[a] =new Eye(i*220 +60, j*120+80);
+      a++;
+    }
+  }
+}
+void draw() {
+  background(255);
+  for (int i = 0; i < count; i++) {
+    e[i].update();
+  }
+  boolean b = false;
+  for (int xx = 0; xx < width - 1; xx++) {
+    for (int yy = 0; yy < height - 1; yy++) {
+      color c = get(xx, yy);
+      if (c ==- 131587) {
+        b = true;
+        set(xx, yy, color(0));
+      }
+    }
+  }
+}
+void mousePressed() {
+  color c = get(mouseX, mouseY);
+  println(c);
+}
